@@ -15,7 +15,7 @@
 
 #include "interface.h"
 #include "../ipc4/base-config.h"
-#include <list.h>
+#include <sof/list.h>
 #include <sof/audio/module_adapter/module/generic.h>
 
 #define module_get_private_data(mod) ((mod)->priv.private)
