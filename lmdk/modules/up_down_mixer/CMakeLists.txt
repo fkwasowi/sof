@@ -1,4 +1,4 @@
-set(LMDK_BUILD 1)
+set(LMDK_BUILD 0)
 set(SOF_SRC_DIR ../../../src)
 set(LMDK_DIR_INCLUDE ../../../lmdk/include)
 target_sources(up_down_mixer PRIVATE ${SOF_SRC_DIR}/audio/up_down_mixer/up_down_mixer.c ${SOF_SRC_DIR}/audio/up_down_mixer/up_down_mixer_hifi3.c)
@@ -24,5 +24,5 @@ target_include_directories(up_down_mixer PRIVATE "${SOF_SRC_DIR}/include"
                                                  "${SOF_SRC_DIR}/include/ipc"
                                                  "${SOF_SRC_DIR}/include/ipc4"
                                                  "${SOF_SRC_DIR}/include/sof/audio/module_adapter/iadk"
-                                                 "${SOF_SRC_DIR}/../xtos/include")
+                                                 "${SOF_SRC_DIR}/../zephyr/include")
 endif()
