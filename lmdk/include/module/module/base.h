@@ -17,6 +17,7 @@
 #include "../ipc4/base-config.h"
 #include <list.h>
 #include <sof/audio/module_adapter/module/generic.h>
+
 #define module_get_private_data(mod) ((mod)->priv.private)
 #define module_set_private_data(mod, data) ((mod)->priv.private = data)
 
@@ -85,7 +86,7 @@ struct processing_module {
 	 * Below #ifdef is a temporary solution used until work on separating a common interface
 	 * for loadable modules is completed.
 	 */
-//#ifdef SOF_MODULE_API_PRIVATE
+#ifdef SOF_MODULE_API_PRIVATE
 	struct sof_ipc_stream_params *stream_params;
 	struct list_item sink_buffer_list; /* list of sink buffers to save produced output */
 
@@ -195,7 +196,7 @@ struct processing_module {
 	uint32_t max_sinks;
 
 	enum module_processing_type proc_type;
-//#endif /* SOF_MODULE_PRIVATE */
+#endif /* SOF_MODULE_PRIVATE */
 };
 
 #endif /* __MODULE_MODULE_GENERIC__ */

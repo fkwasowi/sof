@@ -8,27 +8,19 @@
 
 #include <stddef.h>
 #include <stdint.h>
+#include <user/trace.h>
+#ifndef MODULE_PRIVAT
+#include <rtos/string.h>
+#endif /* MODULE_PRIVAT */
+#ifdef __ZEPHYR__
+#include <zephyr/sys/util.h>
+#endif /* __ZEPHYR__ */
 
 #ifdef __XTENSA__
   #define RESTRICT __restrict
 #else
   #define RESTRICT
 #endif
-
-/* trace event classes - high 8 bits*/
-#define TRACE_CLASS_DEPRECATED	(0)
-
-#define LOG_ENABLE		1  /* Enable logging */
-#define LOG_DISABLE		0  /* Disable logging */
-
-#define LOG_LEVEL_CRITICAL	1  /* (FDK fatal) */
-#define LOG_LEVEL_ERROR		LOG_LEVEL_CRITICAL
-#define LOG_LEVEL_WARNING	2
-#define LOG_LEVEL_INFO		3
-#define LOG_LEVEL_DEBUG		4
-#define LOG_LEVEL_VERBOSE	LOG_LEVEL_DEBUG
-
-#define TRACE_ID_LENGTH 12 /* bit field length */
 
 /*! Log level priority enumeration. */
 typedef enum log_priority {
@@ -54,5 +46,17 @@ typedef enum log_priority {
 	log_priority_e;
 struct AdspLogHandle;
 typedef struct AdspLogHandle AdspLogHandle;
+
+#ifdef __cplusplus
+namespace intel_adsp
+{
+struct ModulePlaceholder {};
+}
+inline void *operator new(size_t size, intel_adsp::ModulePlaceholder * placeholder) throw()
+{
+	(void)size;
+	return placeholder;
+}
+#endif /* #ifdef __cplusplus */
 
 #endif /*_ADSP_STDDEF_H_ */
