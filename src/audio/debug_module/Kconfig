@@ -1,0 +1,17 @@
+# SPDX-License-Identifier: BSD-3-Clause
+
+config COMP_DEBUG_MODULE
+	bool "DEBUG_MODULE component"
+	default n
+        depends on IPC_MAJOR_4
+        help
+         Module added to be able to test various functionalities
+	 that are only available from the FW side (DSP),
+	 and cannot otherwise be tested from the host side.
+	 Functions it implements: fw exception (force divide by zero),
+	 start and not update watchdog,
+	 access to DTF message preparation,
+	 access to HW from SHA counting,
+	 tests access to GNA module.
+
+

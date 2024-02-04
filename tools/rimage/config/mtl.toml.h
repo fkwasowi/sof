@@ -54,6 +54,10 @@
 #include <audio/up_down_mixer/up_down_mixer.toml>
 #endif
 
+#ifdef CONFIG_COMP_DEGUG_MODULE
+#include <audio/debug_module/debug_module.toml>
+#endif
+
 #ifdef CONFIG_PROBE
 #include <probe/probe.toml>
 #endif
