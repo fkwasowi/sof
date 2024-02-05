@@ -31,7 +31,7 @@ enum debug_module_sha_algorithm {
 uint8_t processing_buffer[SHA384_API_MAX_FRAG_LEN];
 
 struct debug_module_sha_payload {
-	debug_module_sha_algorithm algorithm;
+	enum debug_module_sha_algorithm algorithm;
 	size_t data_size;
 	uint8_t data[0];
 };
