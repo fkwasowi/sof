@@ -18,8 +18,8 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include <rtos/string.h>
-#include <sof/lib/cpu.h>
-#include <sof/lib/watchdog.h>
+//#include <sof/lib/cpu.h>
+//#include <sof/lib/watchdog.h>
 
 /* Logging is temporary disabled */
 #define comp_err(...)
@@ -176,7 +176,7 @@ static int debug_module_dmic_periodic_start_test(const uint8_t *data)
     //DmicDev = device_get_binding(DMIC_DRIVER);
     struct dai_intel_dmic *dmic;
     //dmic_api_set_channel_count_no_reconf(DmicDev,data->dataAs<size_t>()[0], data->dataAs<size_t>()[1]);
-    dai_dmic_set_sync_period(CONFIG_DAI_DMIC_PLATFORM_SYNC_PERIOD, dmic);
+    //dai_dmic_set_sync_period(4000, dmic);
     return 0;
 }
 
