@@ -20,6 +20,7 @@
 #include <rtos/string.h>
 //#include <sof/lib/cpu.h>
 //#include <sof/lib/watchdog.h>
+#include <rimage/hash.h>
 
 /* Logging is temporary disabled */
 #define comp_err(...)
@@ -74,7 +75,7 @@ debug_module_process(struct processing_module *mod,
 		      struct sof_source **input_buffers, int num_input_buffers,
 		      struct sof_sink **output_buffers, int num_output_buffers)
 {
-	struct debug_module_data *cd = module_get_private_data(mod);
+	/*struct debug_module_data *cd = module_get_private_data(mod);
 	struct comp_dev *dev = mod->dev;
 
 	size_t output_frames, input_frames, ret, input_cirbuf_size, output_cirbuf_size;
@@ -111,7 +112,7 @@ debug_module_process(struct processing_module *mod,
 
 	ret = source_release_data(input_buffers[0], input_frames * input0_frame_bytes);
 	if (ret)
-		return ret;
+		return ret;*/
 	return 0;
 }
 
@@ -135,7 +136,7 @@ static int debug_module_fw_exception_test(void)
 	else
 		watchdog_disable(payload.instance_id);
 	return 0;
-}
+}*/
 
 static int debug_module_sha384_test(uint8_t *input, size_t input_size,
 				    uint8_t *output, size_t output_size)
@@ -149,8 +150,8 @@ static int debug_module_sha384_test(uint8_t *input, size_t input_size,
 		ret = -EINVAL;
 		return ret;
 	}
-	hash_context sha384hash;
-	int ec = hash_sha384_init(sha384hash);
+	struct hash_context sha384hash;
+	int ec = hash_sha384_init(&sha384hash);
 	size_t remaining_data_size = payload.data_size;
 
 	do {
@@ -158,24 +159,24 @@ static int debug_module_sha384_test(uint8_t *input, size_t input_size,
 		sizeof(processing_buffer) : remaining_data_size;
 
 		remaining_data_size -= chunk_size;
-		ec = hash_update(sha384hash, processing_buffer, sizeof(processing_buffer));
+		ec = hash_update(&sha384hash, processing_buffer, sizeof(processing_buffer));
 	} while (remaining_data_size);
 
-	size_t hash_get_size = hash_get_digest(sha384hash, output, output_size);
+	size_t hash_get_size = hash_get_digest(&sha384hash, output, output_size);
 
-	if (memcpy_s(&output, output_size, sha384hash, hash_get_size) < 0) {
+	if (memcpy_s(&output, output_size, &sha384hash, hash_get_size) < 0) {
 		ret = -EINVAL;
 		return ret;
 	}
 	return 0;
-}*/
+}
 
 static int debug_module_dmic_periodic_start_test(const uint8_t *data)
 {
     //struct device * DmicDev;
     //DmicDev = device_get_binding(DMIC_DRIVER);
     struct dai_intel_dmic *dmic;
-    //dmic_api_set_channel_count_no_reconf(DmicDev,data->dataAs<size_t>()[0], data->dataAs<size_t>()[1]);
+    //dmic_api_set_channel_count_no_reconf(DmicDev, data[0], data[1]);
     //dai_dmic_set_sync_period(4000, dmic);
     return 0;
 }
@@ -204,7 +205,6 @@ static int debug_module_set_configuration(struct processing_module *mod,
 					  uint8_t *response,
 					  size_t response_size)
 {
-	struct comp_dev *dev = mod->dev;
 
 	comp_dbg(dev, "debug_module_set_config()");
 

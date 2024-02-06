@@ -24,6 +24,11 @@
 
 #define DEBUG_HASH 0
 
+#ifndef ENOTRECOVERABLE
+#define ENOTRECOVERABLE 9934
+#endif
+
+
 #if OPENSSL_VERSION_NUMBER < 0x10100000L
 void EVP_MD_CTX_free(EVP_MD_CTX *ctx);
 EVP_MD_CTX *EVP_MD_CTX_new(void);
@@ -160,6 +165,7 @@ void hash_print(struct hash_context *context)
 		fprintf(stdout, "%02x", context->digest[i]);
 	fprintf(stdout, "\n");
 }
+
 
 int hash_single(const void *data, size_t size, const EVP_MD *algo, void *output, size_t output_len)
 {

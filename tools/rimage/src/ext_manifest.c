@@ -16,6 +16,7 @@
 #include <rimage/cavs/cavs_ext_manifest.h>
 #include <rimage/manifest.h>
 #include <rimage/file_utils.h>
+#define ECANCELED 140	/* Operation canceled */
 
 const struct ext_man_header ext_man_template = {
 	.magic = EXT_MAN_MAGIC_NUMBER,
