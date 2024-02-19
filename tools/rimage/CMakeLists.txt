@@ -59,7 +59,7 @@ if(${CMAKE_HOST_WIN32})
 	endif()
 endif()
 
-target_link_libraries(rimage PRIVATE crypto)
+c(rimage PRIVATE crypto)
 
 target_include_directories(rimage PRIVATE
 	src/include/

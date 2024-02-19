@@ -71,9 +71,30 @@ target_include_directories(debug_module PRIVATE "${SOF_SRC_DIR}/include"
                                                  #"${SOF_SRC_DIR}/../../../xtensa/XtDevTools/install/tools/RI-2022.10-win32/XtensaTools/Tools/opt/include"
                                                  "${SOF_SRC_DIR}/../../../../../../msys64/usr/lib/openssl/engines-3"
                                                  "${SOF_SRC_DIR}/../../../../../../converged/msys64/usr/lib/openssl/engines-3"
+                                                 "${SOF_SRC_DIR}/../../../../../..//converged/msys64/usr/lib/openssl/engines-1.1"
                                                  "${SOF_SRC_DIR}/../../../../../../converged/msys64/usr/lib"
+                                                 "${SOF_SRC_DIR}/../../../../../../converged/msys64/var/lib/pacman/local/openssl-1.1.1.q-1"
                                                  "${MSYS_SYSTEM_INCLUDE_PATH}"
                                                  )
 
+if(${CMAKE_HOST_WIN32})
+	cmake_minimum_required(VERSION 3.20)
+	if(DEFINED ENV{OPENSSL_PATH} AND NOT OPENSSL_PATH)
+		set(OPENSSL_PATH $ENV{OPENSSL_PATH})
+	endif()
 
+	if(OPENSSL_PATH)
+		cmake_path(IS_ABSOLUTE OPENSSL_PATH OPENSSL_PATH_ABSOLUTE)
+
+		# Include standard posix headers. Requires pacman openssl-devel package.
+		cmake_path(APPEND OPENSSL_PATH "usr" "include" OUTPUT_VARIABLE OPENSSL_PATH_INCLUDE_PATH)
+		target_include_directories(debug_module PRIVATE "${OPENSSL_PATH_INCLUDE_PATH}")
+	endif()
+endif()
+
+#add_library(openssl_lib "${SOF_SRC_DIR}/../../../../../../converged/msys64/var/lib/pacman/local/openssl-1.1.1.q-1")
+#add_library(openssl_lib "${SOF_SRC_DIR}/../../../../../../converged/msys64/usr/bin")
+#add_library(openssl_lib "${SOF_SRC_DIR}/../../../../../../converged/msys64/usr/lib/libcrypto.a")
+#target_link_libraries(debug_module PRIVATE crypto)
+#target_link_libraries(debug_module openssl_lib)
 

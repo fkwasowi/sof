@@ -177,25 +177,24 @@ static int debug_module_dmic_periodic_start_test(const uint8_t *data)
     //DmicDev = device_get_binding(DMIC_DRIVER);
     struct dai_intel_dmic *dmic;
     //dmic_api_set_channel_count_no_reconf(DmicDev, data[0], data[1]);
-    //dai_dmic_set_sync_period(4000, dmic);
     return 0;
 }
 
-/*static int debug_module_hang_fw(void)
+static int debug_module_hang_fw(void)
 {
-	struct comp_driver_list *drivers = comp_drivers_get();
-	k_spinlock_key_t key;
-	int gate = 0;
+	//struct comp_driver_list *drivers = comp_drivers_get();
+	//k_spinlock_key_t key;
+	//int gate = 0;
 
-	key = k_spin_lock(&drivers->lock);
+	//key = k_spin_lock(&drivers->lock);
 
-	while (gate == 0) {
-		for (size_t idx = 0; idx < 12; ++idx)
-			asm volatile("nop");
-	}
-	k_spin_unlock(&drivers->lock, key);
+	//while (gate == 0) {
+	//	for (size_t idx = 0; idx < 12; ++idx)
+	//		asm volatile("nop");
+	//}
+	//k_spin_unlock(&drivers->lock, key);
 	return 0;
-}*/
+}
 
 static int debug_module_set_configuration(struct processing_module *mod,
 					  uint32_t config_id,
@@ -214,9 +213,9 @@ static int debug_module_set_configuration(struct processing_module *mod,
 	case IPC4_DEBUG_MODULE_WDT_ENABLE_SET:
 		//return debug_module_watchdog_enable_set(mod, fragment, fragment_size);
 	case IPC4_DEBUG_MODULE_HANG_FW_TO_TEST_WATCHDOG:
-		//return debug_module_hang_fw();
+		return debug_module_hang_fw();
 	case IPC4_DEBUG_MODULE_SHA384_TEST:
-		//return debug_module_sha384_test(fragment, fragment_size, response, response_size);
+		return debug_module_sha384_test(fragment, fragment_size, response, response_size);
 	case IPC4_DEBUG_MODULE_DMIC_PERIODIC_START_TEST:
 		return debug_module_dmic_periodic_start_test(fragment);
 	default:

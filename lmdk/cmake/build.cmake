@@ -43,6 +43,7 @@ foreach(MODULE ${MODULES_LIST})
 
 	# Link module with sof common module functions
 	target_link_libraries(${MODULE} sof)
+	#target_link_libraries(${MODULE} crypto)
 
 	target_link_options(${MODULE} PRIVATE
 		"-nostartfiles"
